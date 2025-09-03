@@ -1,0 +1,19 @@
+{
+  "name": "webuiplaywrightjs",
+  "version": "1.0.0",
+  "main": "index.js",
+"scripts": {
+  "test": "cucumber-js features --require 'steps/**/*.js' --format progress",
+  "test:headed": "HEADED=true cucumber-js features --require 'steps/**/*.js' --format progress",
+  "test:login": "cucumber-js features/login.feature --require 'steps/**/*.js' --format progress"
+
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "@playwright/test": "^1.55.0"
+  }
+}

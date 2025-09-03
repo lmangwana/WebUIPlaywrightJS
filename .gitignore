@@ -1,0 +1,13 @@
+# Node modules
+node_modules/
+
+# Playwright output
+test-results/
+playwright-report/
+videos/
+reports/
+
+# OS / IDE files
+.DS_Store
+.idea/
+.vscode/
