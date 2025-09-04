@@ -2,7 +2,7 @@
 
 A comprehensive Playwright test automation framework using Cucumber BDD for the [SauceDemo](https://www.saucedemo.com/) application.
 
-## 🚀 Features
+##  Features
 
 - **Cross-browser testing** (Chromium, Firefox, WebKit)
 - **BDD with Cucumber.js** for readable test scenarios
@@ -11,12 +11,12 @@ A comprehensive Playwright test automation framework using Cucumber BDD for the 
 - **CI/CD ready** with GitHub Actions
 - **Environment configuration** support
 
-## 📋 Prerequisites
+##  Prerequisites
 
 - Node.js 18+ 
 - npm
 
-## ⚡ Quick Start
+##  Quick Start
 
 1. **Clone and install**
    ```bash
@@ -38,14 +38,14 @@ A comprehensive Playwright test automation framework using Cucumber BDD for the 
    npm run test:login        # Login tests only
    ```
 
-## 📊 Test Reports
+##  Test Reports
 
 After test execution, find reports in:
 - **HTML Report**: `artifacts/cucumber-report.html`
 - **Videos**: `artifacts/videos/`
 - **Screenshots**: Embedded in HTML report on failures
 
-## 🏗️ Project Structure
+##  Project Structure
 
 ```
 ├── features/           # Cucumber feature files
@@ -55,21 +55,21 @@ After test execution, find reports in:
 └── .github/workflows/ # CI/CD pipeline
 ```
 
-## 🔧 Available Scripts
+##  Available Scripts
 
 - `npm run test:e2e` - Run all tests headless
 - `npm run test:e2e:headed` - Run tests in headed mode
 - `npm run test:login` - Run login-specific tests
 - `npm run test` - Default test command (used in CI)
 
-## 🤖 CI/CD
+##  CI/CD
 
 GitHub Actions automatically runs tests on push/PR with:
 - Multi-browser matrix testing
 - Artifact uploads (reports, videos, screenshots)
 - Environment variable injection from secrets
 
-## 📝 Writing Tests
+##  Writing Tests
 
 Tests follow BDD format in `features/` directory:
 ```gherkin
