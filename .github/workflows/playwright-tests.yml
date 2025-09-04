@@ -1,0 +1,56 @@
+name: Playwright JS Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    timeout-minutes: 60 # Kill Job after 60 minutes
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+      fail-fast: false  # Continue other browsers even if one fails
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Setup Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Install dependencies (similar to Maven in Java)
+      - name: Install dependencies
+        run: npm ci
+
+      # Install Playwright browsers
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      # Run Playwright tests (headless in CI) injecting from GitHub secrets
+      - name: Run tests
+        run: npm run test
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          BROWSER: ${{ matrix.browser }}
+          HEADED: "false"
+          USER_STANDARD: ${{ secrets.USER_STANDARD }}
+          USER_LOCKED: ${{ secrets.USER_LOCKED }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+
+      # Upload artifacts (screenshots + reports)
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts-${{ matrix.browser }}
+          path: |
+            artifacts/**
+          retention-days: 14
