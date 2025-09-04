@@ -6,7 +6,9 @@
     "test": "cucumber-js features --require 'support/env.js' --require 'steps/**/*.js' --format json:artifacts/cucumber-report.json --format progress",
     "test:headed": "HEADED=true npm run test",
     "test:login": "cucumber-js features/login.feature --require 'support/env.js' --require 'steps/**/*.js' --format json:artifacts/cucumber-report.json --format progress",
+    "test:api": "cucumber-js features/booking-api.feature --require 'support/env.js' --require 'steps/**/*.js' --format json:artifacts/cucumber-report.json --format progress",
     "posttest": "node support/report.js",
+    "posttest:api": "node support/report.js",
     "test:e2e": "cucumber-js features/placeOrderE2E.feature --require 'support/env.js' --require 'steps/**/*.js' --format json:artifacts/cucumber-report.json --format progress",
     "posttest:e2e": "node support/report.js",
     "test:e2e:headed": "HEADED=true npm run test:e2e"
@@ -18,7 +20,8 @@
   "devDependencies": {
     "@cucumber/cucumber": "^12.2.0",
     "@playwright/test": "^1.55.0",
-    "cucumber-html-reporter": "^7.2.0"
+    "cucumber-html-reporter": "^7.2.0",
+    "@faker-js/faker": "^8.0.0"
   },
   "dependencies": {
     "dotenv": "^17.2.2"

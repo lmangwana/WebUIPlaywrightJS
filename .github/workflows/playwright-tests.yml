@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Setup Node.js
+      # Setup Node.js (similar to setting up Java and version)
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -44,6 +44,9 @@ jobs:
           USER_STANDARD: ${{ secrets.USER_STANDARD }}
           USER_LOCKED: ${{ secrets.USER_LOCKED }}
           PASSWORD: ${{ secrets.PASSWORD }}
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          API_USERNAME: ${{ secrets.API_USERNAME }}
+          API_PASSWORD: ${{ secrets.API_PASSWORD }}
 
       # Upload artifacts (screenshots + reports)
       - name: Upload artifacts
