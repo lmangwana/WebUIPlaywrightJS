@@ -1,6 +1,7 @@
 # Node modules
 node_modules/
-
+.env
+artifacts/
 # Playwright output
 test-results/
 playwright-report/

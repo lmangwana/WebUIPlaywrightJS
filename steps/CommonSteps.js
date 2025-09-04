@@ -1,7 +1,7 @@
 const { Given, When, Then, And, setDefaultTimeout } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 
-// Page Objects (JS versions mirroring your Java class names)
+// Page Objects (JS versions mirroring my Java class names)
 const { LoginPage } = require('../pages/LoginPage');
 const { ProductsPage } = require('../pages/ProductsPage');
 const { CartPage } = require('../pages/CartPage');
@@ -60,7 +60,7 @@ When('the user adds {string} to the cart', async function (name) {
   await products.addItemByName(name);
 });
 
-// And navigates to the cart  (still supported if you use this step)
+// And navigates to the cart  (still supported if I use this step)
 When('navigates to the cart', async function () {
   const { products } = makePages(this);
   await products.goToCart();
@@ -145,7 +145,7 @@ Then('they enter their details:', async function (dataTable) {
 // Then the cart should show the following items:
 Then('the cart should show the following items:', async function (dataTable) {
   const { cart } = makePages(this);
-  const items = dataTable.asMaps(String, String);
+  const items = dataTable.hashes();
 
   for (const item of items) {
     const qty  = item['Qty'];
@@ -155,14 +155,14 @@ Then('the cart should show the following items:', async function (dataTable) {
   }
 });
 
-// And the Price total is correct
+// And the Price total is correct - fetched from cart page and compared to overview page
 Then('the Price total is correct', async function () {
   const { cart, overview } = makePages(this);
-  const subtotal = await cart.subtotalfromCart(); // number or formatted string, your choice in page object
+  const subtotal = await cart.subtotalfromCart(); // number or formatted string, my choice in page object
   await overview.assertSubtotal(subtotal);
 });
 
-// Then they see an order confirmation with the message "Thank you for your order!"
+// Then we see an order confirmation with the message "Thank you for your order!"
 Then('they see an order confirmation with the message {string}', async function (message) {
   const { overview } = makePages(this);
   await overview.assertOrderPlaced(message);
