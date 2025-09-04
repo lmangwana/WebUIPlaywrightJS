@@ -92,9 +92,21 @@ After test execution, find reports in:
 ##  CI/CD
 
 GitHub Actions automatically runs tests on push/PR with:
-- Multi-browser matrix testing
+- Multi-browser matrix testing (Chromium, Firefox, WebKit)
 - Artifact uploads (reports, videos, screenshots)
 - Environment variable injection from secrets
+- **Automated GitHub Pages deployment** with test reports
+
+### **Test Reports on GitHub Pages**
+
+After each CI run, test reports are automatically published to GitHub Pages:
+- **Latest Reports**: `https://[username].github.io/WebUIPlaywrightJS/`
+- **Historical Reports**: `https://[username].github.io/WebUIPlaywrightJS/runs/[run-number]/`
+
+Reports include:
+- Cucumber HTML reports with embedded screenshots
+- Test execution videos on failures
+- Multi-browser test results merged into single view
 
 ##  Writing Tests
 
