@@ -8,9 +8,6 @@ class BasePage {
     if (!process.env.BASE_URL) {
       throw new Error("BASE_URL not set. Please create .env or configure GitHub Secrets.");
     }
-
-    // normalize trailing slash
-    this.baseUrl = process.env.BASE_URL.replace(/\/+$/, '');
   }
 
   async shouldSee(selector) {
