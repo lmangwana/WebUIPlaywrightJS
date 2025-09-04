@@ -100,8 +100,8 @@ GitHub Actions automatically runs tests on push/PR with:
 ### **Test Reports on GitHub Pages**
 
 After each CI run, test reports are automatically published to GitHub Pages:
-- **Latest Reports**: `https://[username].github.io/WebUIPlaywrightJS/`
-- **Historical Reports**: `https://[username].github.io/WebUIPlaywrightJS/runs/[run-number]/`
+- **Latest Reports**: `https://lmangwana.github.io/WebUIPlaywrightJS/`
+- **Historical Reports**: `https://lmangwana.github.io/WebUIPlaywrightJS/runs/[run-number]/`
 
 Reports include:
 - Cucumber HTML reports with embedded screenshots
