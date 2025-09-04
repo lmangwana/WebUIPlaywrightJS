@@ -97,16 +97,18 @@ GitHub Actions automatically runs tests on push/PR with:
 - Environment variable injection from secrets
 - **Automated GitHub Pages deployment** with test reports
 
-### **Test Reports on GitHub Pages**
+### **Test Reports on GitHub Pages** 🚧
 
 After each CI run, test reports are automatically published to GitHub Pages:
-- **Latest Reports**: `https://lmangwana.github.io/WebUIPlaywrightJS/`
-- **Historical Reports**: `https://lmangwana.github.io/WebUIPlaywrightJS/runs/[run-number]/`
+- **Latest Reports**: `https://lmangwana.github.io/WebUIPlaywrightJS/` *(Under Construction)*
+- **Historical Reports**: `https://lmangwana.github.io/WebUIPlaywrightJS/runs/[run-number]/` *(Under Construction)*
 
 Reports include:
 - Cucumber HTML reports with embedded screenshots
 - Test execution videos on failures
 - Multi-browser test results merged into single view
+
+*Note: GitHub Pages deployment is configured but may take time to propagate. Local reports are available in `artifacts/` folder after test execution.*
 
 ##  Writing Tests
 
