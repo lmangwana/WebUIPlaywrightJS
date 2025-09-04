@@ -5,36 +5,43 @@ on:
     branches: [ main ]
   pull_request:
 
+# Needed for GitHub Pages deploy in the SAME workflow
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Avoid overlapping Pages deploys
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   test:
-    timeout-minutes: 60 # Kill Job after 60 minutes
+    timeout-minutes: 60
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         browser: [chromium, firefox, webkit]
-      fail-fast: false  # Continue other browsers even if one fails
+      fail-fast: false
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Setup Node.js (similar to setting up Java and version)
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
-      # Install dependencies (similar to Maven in Java)
       - name: Install dependencies
         run: npm ci
 
-      # Install Playwright browsers
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # Run Playwright tests (headless in CI) injecting from GitHub secrets
       - name: Run tests
         run: npm run test
         env:
@@ -48,12 +55,59 @@ jobs:
           API_USERNAME: ${{ secrets.API_USERNAME }}
           API_PASSWORD: ${{ secrets.API_PASSWORD }}
 
-      # Upload artifacts (screenshots + reports)
-      - name: Upload artifacts
+      # Upload test artifacts (cucumber reports, screenshots, videos)
+      - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-artifacts-${{ matrix.browser }}
-          path: |
-            artifacts/**
+          name: test-artifacts-${{ matrix.browser }}
+          path: artifacts/**
           retention-days: 14
+
+
+  # Publish "latest" + keep per-run history to GitHub Pages
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prepare site folders
+        run: |
+          mkdir -p site/latest site/runs/${{ github.run_number }}
+
+      # Download and merge all test artifacts into site/latest
+      - name: Download test artifacts (all browsers)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: test-artifacts-*
+          path: site/latest
+          merge-multiple: true
+
+      # Make sure there's an index.html at site/latest/
+      - name: Create index.html (point to Cucumber report)
+        run: |
+          if [ -f "site/latest/cucumber-report.html" ]; then
+            cp "site/latest/cucumber-report.html" "site/latest/index.html"
+          else
+            echo "<h1>Test Report</h1><p>No cucumber-report.html found</p>" > site/latest/index.html
+          fi
+
+      # Copy latest into per-run archive
+      - name: Archive this run
+        run: |
+          cp -R site/latest/* "site/runs/${{ github.run_number }}/"
+
+      # Publish to GitHub Pages
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
