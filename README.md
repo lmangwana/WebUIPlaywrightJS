@@ -142,8 +142,6 @@ Feature: Booking API CRUD Operations
 
 Configure your `.env` file with the required variables. See `.env.example` for the complete template with default values.
 
-**Note**: Never commit sensitive credentials to version control. Use placeholder values in documentation.
-
 ##  API Architecture
 
 The API testing framework follows a service-oriented architecture with clear separation of concerns:
